@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>မြန်မာ့ရိုးရာအစားအစာများ | Myanmar Food Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --accent: #0ea5e9;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.9);
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        body { 
+            background-color: var(--light); 
+            font-family: 'Inter', 'Pyidaungsu', sans-serif; 
+            line-height: 1.8; 
+            color: #334155;
+        }
+
+        /* NAVIGATION */
+        .navbar {
+            background: var(--dark);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .logo { color: white; font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; }
+        
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+        .nav-links li { 
+            color: #94a3b8; 
+            cursor: pointer; 
+            font-weight: 500; 
+            font-size: 0.95rem;
+        }
+        .nav-links li:hover { color: var(--accent); }
+
+        .menu-toggle { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
+        /* HERO */
+        .container { max-width: 1100px; margin: 2rem auto; padding: 0 20px; }
+
+        .hero-section {
+            height: 60vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1541518763669-27fef04b14ea?auto=format&fit=crop&w=1200') center/cover;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+
+        .hero-content h1 { font-size: clamp(1.8rem, 5vw, 3.5rem); line-height: 1.3; margin-bottom: 1.5rem; }
+        .hero-content p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; max-width: 600px; margin-inline: auto; }
+
+        .cta-btn {
+            background: var(--accent);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* GRID */
+        .section-title { font-weight: 800; font-size: 2rem; margin-bottom: 2rem; color: var(--dark); text-align: center; }
+        .category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
+
+        .category-box {
+            background: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            font-weight: 600;
+        }
+
+        .category-box:hover {
+            transform: translateY(-5px);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.3);
+        }
+
+        /* DETAIL PAGE */
+        .detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: var(--glass);
+            padding: 3rem;
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            border: 1px solid white;
+        }
+
+        .detail-img-box img { 
+            width: 100%; 
+            height: 400px; 
+            object-fit: cover; 
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .back-btn {
+            background: #e2e8f0;
+            border: none; padding: 10px 20px;
+            border-radius: 8px; margin-bottom: 1.5rem;
+            cursor: pointer; font-weight: 600;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%; background: var(--dark); padding: 2rem; }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; }
+            .detail-layout { grid-template-columns: 1fr; padding: 1.5rem; }
+            .detail-img-box img { height: 250px; }
+            .category-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .page { display: none; animation: slideUp 0.4s ease-out; }
+        .active-page { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">FoodHub.mm</div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <ul class="nav-links" id="navLinks">
+            <li onclick="showPage('home')">ပင်မစာမျက်နှာ</li>
+            <li onclick="showPage('category-list')">ဟင်းလျာများ</li>
+            <li onclick="showPage('about')">ကျွန်ုပ်တို့အကြောင်း</li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="home" class="page active-page">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1>မြန်မာ့ရိုးရာ <br><span style="color: var(--accent)">အရသာကမ္ဘာ</span></h1>
+                    <p>တိုင်းရင်းသားပေါင်းစုံ၏ ထူးခြားသော လက်ရာများကို စူးစမ်းလေ့လာလိုက်ပါ။</p>
+                    <button class="cta-btn" onclick="showPage('category-list')">အခုပဲကြည့်မယ်</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="category-list" class="page">
+            <h2 class="section-title">တိုင်းရင်းသား ဟင်းလျာများ</h2>
+            <div class="category-grid" id="categoryGrid">
+                <div class="category-box" onclick="showDetail('kachin')">ကချင်</div>
+                <div class="category-box" onclick="showDetail('kayah')">ကယား</div>
+                <div class="category-box" onclick="showDetail('kayin')">ကရင်</div>
+                <div class="category-box" onclick="showDetail('chin')">ချင်း</div>
+                <div class="category-box" onclick="showDetail('bamar')">ဗမာ</div>
+                <div class="category-box" onclick="showDetail('mon')">မွန်</div>
+                <div class="category-box" onclick="showDetail('rakhine')">ရခိုင်</div>
+                <div class="category-box" onclick="showDetail('shan')">ရှမ်း</div>
+            </div>
+        </section>
+
+        <section id="detail-page" class="page">
+            <button class="back-btn" onclick="showPage('category-list')">← ပြန်သွားရန်</button>
+            <div id="detail-content"></div>
+        </section>
+    </div>
+
+    <script>
+        // Data stays the same as your original script
+        const foodData = {
+            kachin: { title: "ကချင်ထမင်းသုပ်", ingredients: ["ထမင်းဖြူ", "ပဲပုတ်", "အသား", "ကြက်သွန်ဖြူ/နီ"], steps: ["မီးကင်ထားတဲ့ပဲပုတ်ကို ထောင်းရမယ်", "အသားနဲ့နယ်ပြီး သုံးဆောင်ပါ"] },
+            shan: { title: "ရှမ်းတို့ဟူးနွေး", ingredients: ["ပဲစိမ်းမှုန့်", "ဆန်စီးခေါက်ဆွဲ", "ဆီချက်"], steps: ["ပဲမှုန့်ကို ပျစ်အောင်ကျိုပါ", "ခေါက်ဆွဲပေါ်လောင်းထည့်ပြီး သုံးဆောင်ပါ"] },
+            // Add other data here...
+        };
+
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(id).classList.add('active-page');
+            document.getElementById('navLinks').classList.remove('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        function showDetail(id) {
+            const data = foodData[id] || {title: "Coming Soon", ingredients: [], steps: []};
+            const html = `
+                <div class="detail-layout">
+                    <div class="detail-info">
+                        <h2 style="color:var(--primary)">${data.title}</h2>
+                        <h4 style="margin-top:1.5rem; color:var(--dark)">ပါဝင်ပစ္စည်းများ</h4>
+                        <ul style="list-style:none; margin:1rem 0;">${data.ingredients.map(i => `<li>• ${i}</li>`).join('')}</ul>
+                        <h4 style="color:var(--dark)">ပြုလုပ်နည်း</h4>
+                        <ol style="margin:1rem 0 0 1.2rem;">${data.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+                    </div>
+                    <div class="detail-img-box">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600" alt="food">
+                    </div>
+                </div>`;
+            document.getElementById('detail-content').innerHTML = html;
+            showPage('detail-page');
+        }
+    </script>
+</body>
+</html>

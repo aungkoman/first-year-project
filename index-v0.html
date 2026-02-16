@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>မြန်မာ့ရိုးရာအစားအစာများ | Myanmar Food Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Myanmar Food Hub</div>
+        <ul class="nav-links">
+            <li onclick="showPage('home')">Home</li>
+            <li onclick="showPage('category-list')">Category</li>
+            <li onclick="showPage('about')">About Us</li>
+            <li onclick="showPage('resource')">Resources</li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="home" class="page active-page">
+            <div class="hero-section">
+                <div class="hero-overlay">
+                    <h1>မြန်မာ့ယဉ်ကျေးမှုနှင့် အရသာရှိသော ရိုးရာဟင်းလျာများ</h1>
+                    <p>တိုင်းရင်းသားပေါင်းစုံ၏ ထူးခြားဆန်းသစ်သော ချက်ပြုတ်နည်းစနစ်များကို တစ်နေရာတည်းတွင် လေ့လာနိုင်ပါသည်။</p>
+            </div>
+        </section>
+
+        <section id="category-list" class="page">
+            <h2 class="section-title">တိုင်းရင်းသားရိုးရာ အစားအစာများ</h2>
+            <div class="category-grid">
+                <div class="category-box" onclick="showDetail('kachin')">ကချင်</div>
+                <div class="category-box" onclick="showDetail('kayah')">ကယား</div>
+                <div class="category-box" onclick="showDetail('kayin')">ကရင်</div>
+                <div class="category-box" onclick="showDetail('chin')">ချင်း</div>
+                <div class="category-box" onclick="showDetail('bamar')">ဗမာ</div>
+                <div class="category-box" onclick="showDetail('mon')">မွန်</div>
+                <div class="category-box" onclick="showDetail('rakhine')">ရခိုင်</div>
+                <div class="category-box" onclick="showDetail('shan')">ရှမ်း</div>
+                <div class="category-box" onclick="showDetail('dessert')">အချိုပွဲ</div>
+            </div>
+        </section>
+
+        <section id="detail-page" class="page">
+            <button class="back-btn" onclick="showPage('category-list')">← နောက်သို့</button>
+            <div id="detail-content"></div>
+        </section>
+
+        <section id="about" class="page"><div class="content-box"><h2>About Us</h2><p>မြန်မာ့ရိုးရာအစားအစာများကို လေ့လာနိုင်ရန် ဖန်တီးထားပါသည်။</p></div></section>
+        <section id="resource" class="page"><div class="content-box"><h2>Resources</h2><p>Information sources from Google & Pinterest.</p></div></section>
+    </div>
+
+    <script>
+        const foodData = {
+            kachin: { 
+                title: "ကချင်ထမင်းသုပ်", 
+                img: "kachin.jpg", 
+                ingredients: ["ထမင်းဖြူ", "ပဲပုတ်", "အသား", "ကြက်သွန်ဖြူ/နီ", "ငရုတ်သီးစိမ်း", "ဂျင်း", "နံနံပင်", "သံပုရာသီး"], 
+                steps: ["ငရုတ်သီး၊ ဂျင်း၊ ကြက်သွန်တို့ကို လှော်ပေးရမယ်", "မီးကင်ထားတဲ့ပဲပုတ်ကို လှော်ထားတဲ့ ငရုတ်သီး၊ ဂျင်း၊ ကြက်သွန်တို့နဲ့ရောထောင်းရမယ်", "နံနံပင် (သို့မဟုတ်) ပင်စိမ်းကိုပါထည့်ထောင်းရမယ်", "မွထားတဲ့အသားနဲ့ထောင်းထားတဲ့အရာတွေကို ဆီ၊ ဆား၊ ငံပြာရည်ထည့်ပြီးထမင်းဖြူနဲ့နယ်မယ်", "သံပုရာသီးအနည်းငယ်စမ်းမယ်"] 
+            },
+            kayah: { 
+                title: "ကယားဟင်းထုပ်", 
+                img: "kayah.jpg", 
+                ingredients: ["ကြက်သွန်မြိတ်", "ငှက်ပျောရွက်", "ဆန်မှုန့်", "ကောက်ညှင်းမှုန့်", "ဆား/ဆီချက်/အသားမှုန့်"], 
+                steps: ["ငှက်ပျောရွက်ကိုတစ်မိနစ်ခန့်ပြုတ်ရပါမယ်", "မုန့်နှစ်ကို ရေဖြင့် ခပ်ပြစ်ပြစ်ဖြစ်သည်အထိမွှေပေးရပါမယ်", "မုန့်နှစ်ပြစ်သွားပြီဆိုရင်ဆီချက်နဲ့ ကြက်သွန်မြိတ်ထည့်ရပါမယ်", "ပြုတ်ထားတဲ့ကြက်သားနဲ့မုန့်နှစ်ကို ငှက်ပျောရွက်ထဲထည့်ပြီးထုပ်ရပါမယ်", "ဟင်းထုပ်ကိုနာရီဝက်ခန့်ပေါင်းထားရပါမယ်"] 
+            },
+            kayin: { 
+                title: "မျှစ်တာလပေါ့ဟင်း", 
+                img: "kayin.jpg", 
+                ingredients: ["ဆန်", "ငါးပိ", "မျှစ်", "အသား", "ဆူးပုတ်ရွက်", "ရုံးပတီသီး", "မှို", "ပင်စိမ်း"], 
+                steps: ["ဆန်ကိုလှော်ပြီးထောင်းရပါမယ်", "ရေဆူရင် ငါးပိ၊ ဆန်လှော်မှုန့်နဲ့မျှစ်တို့ကိုထည့်ပြီး အဖုံးပိတ်ထားရပါမယ်", "ပြီးရင် အသား၊ ဆူးပုတ်ရွက်၊ ရုံးပတီသီး၊ မှို၊ ပင်စိမ်းထည့်ပြီး ချက်ပေးရပါမယ်"] 
+            },
+            chin: { 
+                title: "ဆာဗူးသီး", 
+                img: "chin.jpg", 
+                ingredients: ["ချင်းပြောင်းဖူး", "အသား", "ဂျင်း/ဆနွင်း/ဆား", "ငရုတ်သီးလှော်မှုန့်", "ကြက်သွန်နီ", "နံနံပင်", "သံပုရာသီး"], 
+                steps: ["ချင်းပြောင်းဖူးစေ့လေးတွေကိုနူးအိနေအောင်ပြုတ်ရပါမယ်", "ပြောင်းဖူးစေ့လေးတွေနူးလာရင် ဆန်မှုန့်ရေဖျော်ထည့်ပေးရပါမယ်", "ပြုတ်ထားတဲ့အသားကိုမျှင်ပြီးထည့်ရပါမယ်", "ငရုတ်နှစ်၊ ကြက်သွန်နီ၊ နံနံပင်နဲ့ သံပုရာသီးညှစ်ထည့်ရပါမယ်"] 
+            },
+            bamar: { 
+                title: "အုန်းနို့ခေါက်ဆွဲ", 
+                img: "bamar.jpg", 
+                ingredients: ["ကြက်သား", "ဆား/ဆနွင်း/အသားမှုန့်/သကြား/ဂျင်း", "ကြက်သွန်နီ/ဖြူ", "ပဲအစိမ်းမှုန့်", "အုန်းနို့"], 
+                steps: ["ပဲအစိမ်းမှုန့်ကို ရေဖြင့်ပျော်အောင်မွှေပြီး အနံ့ပျောက်သည်အထိကျိုပါ", "ကြက်သားကို အနှစ်နဲ့ ဆီပြန်အောင်ချက်ပြီး ပဲအနှစ်ရည်ထဲ ထည့်ပါ", "ပွက်ပွက်ဆူလာလျှင် အုန်းနို့ထည့်ပြီး အနံ့မွှေးလာသည်အထိ တည်ထားပါ"] 
+            },
+            mon: { 
+                title: "မွန်မုန့်ဟင်းခါး", 
+                img: "mon.jpg", 
+                ingredients: ["ငါးခူ", "စပါးလင်", "ကြက်သွန်ဖြူ", "ဆနွင်းမှုန့်", "ငှက်ပျောအူ", "ငါးပိ/ဆား/ငံပြာရည်"], 
+                steps: ["ငါးခူနဲ့စပါးလင်ကိုပြုတ်ပြီး အသားနွှာရပါမယ်", "ကြိတ်ထားတဲ့စပါးလင်၊ ကြက်သွန်ဖြူနဲ့ဆနွင်းကို ဆီသတ်ရပါမယ်", "နွှင်ထားတဲ့ငါးနဲ့ကြက်သွန်နီကိုထည့်၊ ဆူလာရင် ငှက်ပျောအူထည့်ပြီး အရသာသွင်းရပါမယ်"] 
+            },
+            rakhine: { 
+                title: "ရခိုင်မုန့်တီ", 
+                img: "rakhine.jpg", 
+                ingredients: ["ငါး", "ကြက်သွန်ဖြူ", "ငရုတ်သီးစိမ်း", "ငါးပိရည်", "ဆား/အချိုမှုန့်/ငရုတ်ကောင်း"], 
+                steps: ["ပြုတ်ထားတဲ့ငါးကိုအရိုးနွှင်ပြီးထောင်းရပါမယ်", "ငါးပြုတ်ရည်ထဲ ငါးပိရည်ဖျော်ထည့်ပြီး ဆား၊ အချိုမှုန့်၊ ငရုတ်ကောင်းထည့်ပါ", "ဆူပြီဆိုရင် ငရုတ်သီးစိမ်းထောင်းနဲ့ ကြက်သွန်ဖြူထောင်းထည့်ပါ"] 
+            },
+            shan: { 
+                title: "ရှမ်းတို့ဟူးနွေး", 
+                img: "shan.jpg", 
+                ingredients: ["ပဲစိမ်းမှုန့်", "ဆန်စီးခေါက်ဆွဲ", "ကြက်သွန်ဖြူဆီချက်", "ငရုတ်သီးဆီကြော်", "မြေပဲ/နှမ်းလှော်"], 
+                steps: ["ပဲစိမ်းမှုန့်ကို ရေ၊ ဆနွင်း၊ ဆားတို့နဲ့ရောပြီး မီးအေးအေးမှာ ပျစ်အောင်မွှေပါ", "ပဲအစိမ်းနံ့ပျောက်ရင် ဆန်စီးခေါက်ဆွဲပေါ်လောင်းထည့်ပါ", "ဆီချက်၊ မြေပဲ၊ ငံပြာရည်၊ ငရုတ်သီး၊ နံနံပင်တို့နဲ့ သုံးဆောင်ပါ"] 
+            }
+        };
+
+        const dessertData = [
+            {
+                title: "မုန့်လုံးရေပေါ်",
+                img: "mont-lone.jpg",
+                ingredients: ["ကောက်ညှင်းမှုန့်", "ထန်းလျက်", "အုန်းသီးဖြူး"],
+                steps: ["ကောက်ညှင်းမှုန့်ကို နယ်ပြီး ထန်းလျက်ခဲထည့်လုံးပါ။", "ရေနွေးပွက်ပွက်တွင်ပြုတ်ပြီး ရေပေါ်ပေါ်လာလျှင် ခပ်ယူပါ။", "အုန်းသီးဖြူး၍ သုံးဆောင်ပါ။"]
+            },
+            {
+                title: "ထိုးမုန့်",
+                img: "htoe-mont.jpg",
+                ingredients: ["ကောက်ညှင်းမှုန့်", "သကြား", "ဆီ/ထောပတ်", "မြေပဲ/စပျစ်သီးခြောက်"],
+                steps: ["ကောက်ညှင်းမှုန့်၊ ရေ၊ သကြားတို့ကို ဆီ၊ ထောပတ်တို့နှင့် ရောပါ။", "တစ်သားတည်းဖြစ်အောင် နာနာထိုးပါ။", "မြေပဲ၊ စပျစ်သီးခြောက်တို့ထည့်၍ အအေးခံပါ။"]
+            }
+        ];
+
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(id).classList.add('active-page');
+            window.scrollTo(0,0);
+        }
+
+        function showDetail(id) {
+            let html = "";
+            if(id === 'dessert') {
+                html = `<h2 class="section-title">မြန်မာ့ရိုးရာအချိုပွဲများ</h2>`;
+                dessertData.forEach(d => {
+                    html += `
+                        <div class="detail-layout">
+                            <div class="detail-info">
+                                <h3>${d.title}</h3>
+                                <h4>ပါဝင်ပစ္စည်းများ</h4>
+                                <ul>${d.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+                                <h4>ပြုလုပ်နည်း</h4>
+                                <ol>${d.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+                            </div>
+                            <div class="detail-img-box"><img src="${d.img}" alt="${d.title}"></div>
+                        </div>`;
+                });
+            } else {
+                const data = foodData[id];
+                html = `
+                    <div class="detail-layout">
+                        <div class="detail-info">
+                            <h2>${data.title}</h2>
+                            <h4>ပါဝင်ပစ္စည်းများ</h4>
+                            <ul>${data.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+                            <h4>ပြုလုပ်နည်း</h4>
+                            <ol>${data.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+                        </div>
+                        <div class="detail-img-box"><img src="${data.img}" alt="${data.title}"></div>
+                    </div>`;
+            }
+            document.getElementById('detail-content').innerHTML = html;
+            showPage('detail-page');
+        }
+    </script>
+</body>
+</html>
+<style>:root {
+    --navy-deep: #0f172a;
+    --navy-soft: #eff5ff;
+    --accent: #38bdf8;
+    --white: #ffffff;
+    --bg-light: #f1f5f9;
+}
+
+* { box-sizing: border-box; transition: all 0.3s ease; margin: 0; padding: 0; }
+body { background-color: var(--bg-light); font-family: 'Inter', sans-serif; line-height: 1.6; }
+
+/* NAVBAR */
+.navbar {
+    background: var(--navy-deep);
+    padding: 1.2rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.logo { color: white; font-weight: 700; font-size: 1.4rem; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links li { color: #cbd5e1; cursor: pointer; font-weight: 500; }
+.nav-links li:hover { color: var(--accent); }
+
+/* CONTAINER */
+.container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+
+/* HERO SECTION (HOME) */
+.hero-section {
+    height: 70vh;
+    background-image: url('home-bg.jpg'); /* Background Image Name */
+    background-size: cover;
+    background-position: center;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero-overlay {
+    background: rgba(15, 23, 42, 0.7);
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    color: white; text-align: center; padding: 20px;
+}
+.hero-overlay h1 { font-size: 3rem; margin-bottom: 20px; }
+.explore-btn {
+    background: var(--accent);
+    color: var(--navy-deep);
+    padding: 15px 40px;
+    border: none; border-radius: 50px;
+    font-weight: 700; cursor: pointer;
+}
+
+/* CATEGORY BOXES (No Images) */
+.section-title { text-align: center; margin-bottom: 40px; color: var(--navy-deep); }
+.category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
+.category-box {
+    background: rgb(199, 193, 255); padding: 60px 20px;
+    text-align: center; border-radius: 20px;
+    border: 1px solid #ffffff; cursor: pointer;
+    font-weight: 600; font-size: 1.3rem; color: var(--navy-deep);
+}
+.category-box:hover { border-color: var(--accent); transform: translateY(-8px); background: #f8fafc; }
+
+/* DETAIL PAGE (စာတစ်ခြမ်း ပုံတစ်ခြမ်း) */
+.detail-layout {
+    display: flex; gap: 50px;
+    background: white; padding: 45px;
+    border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    margin-bottom: 40px; align-items: flex-start;
+}
+.detail-info { flex: 1.5; }
+.detail-img-box { flex: 1; }
+.detail-img-box img { width: 100%; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+
+/* TYPOGRAPHY */
+h2 { color: var(--navy-deep); margin-bottom: 20px; }
+h3 { margin-bottom: 15px; color: var(--navy-deep); }
+h4 { color: var(--accent); margin: 25px 0 10px; text-transform: uppercase; font-size: 0.9rem; }
+ul, ol { margin-left: 20px; color: #475569; }
+li { margin-bottom: 10px; }
+
+.back-btn {
+    background: var(--navy-deep); color: white;
+    padding: 12px 25px; border: none; border-radius: 10px;
+    cursor: pointer; margin-bottom: 30px;
+}
+
+.page { display: none; }
+.active-page { display: block; animation: fadeIn 0.5s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.content-box { background: white; padding: 50px; border-radius: 25px; }
+
+/* Mobile Responsive */
+@media (max-width: 900px) {
+    .detail-layout { flex-direction: column; }
+    .detail-img-box { order: -1; width: 100%; }
+    .hero-overlay h1 { font-size: 2rem; }
+}</style>
